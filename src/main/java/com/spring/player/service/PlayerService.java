@@ -4,7 +4,7 @@ import com.spring.player.model.Player;
 
 import java.util.List;
 
-public interface PlaerService {
+public interface PlayerService {
 
     Player showPlayer(int id);
 

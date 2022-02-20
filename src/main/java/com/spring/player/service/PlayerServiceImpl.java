@@ -11,12 +11,13 @@ import java.util.List;
 
 @Service
 @Transactional
-public class PlayerServiceImpl implements PlaerService{
+public class PlayerServiceImpl implements PlayerService{
 
-    @Autowired
     private PlayerDAO playerDAO;
 
-    public PlayerServiceImpl() {
+    @Autowired
+    public PlayerServiceImpl(PlayerDAO playerDAO) {
+        this.playerDAO = playerDAO;
     }
 
     @Override
