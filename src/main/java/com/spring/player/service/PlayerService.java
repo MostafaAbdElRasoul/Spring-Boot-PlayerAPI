@@ -10,7 +10,7 @@ public interface PlayerService {
 
     List<Player> allPlayers();
 
-    int deletePlayer(int id);
+    void deletePlayer(int id);
 
     void savePlayer(Player player);
 

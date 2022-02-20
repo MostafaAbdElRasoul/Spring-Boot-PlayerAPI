@@ -72,10 +72,7 @@ public class PlayerController {
     // http://localhost:9090/api/player/1
     @DeleteMapping("/player/{id}")
     public String deletePlayerWithPathVar(@PathVariable("id") int id) {
-        int result = playerService.deletePlayer(id);
-        if(result == 0) {
-            throw new RuntimeException("Player not found of id : " + id);
-        }
+        playerService.deletePlayer(id);
         return "Success Deleting";
     }
 }
