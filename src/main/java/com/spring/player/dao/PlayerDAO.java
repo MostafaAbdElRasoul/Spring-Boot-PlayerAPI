@@ -15,3 +15,12 @@ public interface PlayerDAO extends JpaRepository<Player, Integer> {
 
    //  void addPlayer(Player player);
 }
+//------------------------------
+/*
+* Get http://localhost:9090/players
+* Get http://localhost:9090/players/id
+* post http://localhost:9090/players      player obj in body without id
+* put http://localhost:9090/players/id       player obj in body without id or with same id in url
+* delete http://localhost:9090/players/id
+*
+* */
