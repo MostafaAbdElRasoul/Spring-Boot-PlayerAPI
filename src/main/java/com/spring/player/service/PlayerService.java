@@ -17,11 +17,23 @@ public class PlayerService {
         this.playerDAO = playerDAO;
     }
 
-    public Player getPlayerByName(String name){
-        return playerDAO.findByName(name);
+
+    public Player showPlayer(int id) {
+        return playerDAO.findById(id).get();
     }
 
-    public List<Player> getPlayersByNameContaining(String name){
-        return playerDAO.findByNameContaining(name);
+
+    public List<Player> allPlayers() {
+        return playerDAO.findAll();
+    }
+
+
+    public void deletePlayer(int id) {
+         playerDAO.deleteById(id);
+    }
+
+
+    public void savePlayer(Player player) {
+        playerDAO.save(player);
     }
 }

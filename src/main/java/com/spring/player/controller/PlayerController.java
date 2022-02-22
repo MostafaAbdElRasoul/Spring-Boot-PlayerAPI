@@ -3,15 +3,12 @@ package com.spring.player.controller;
 import com.spring.player.model.Player;
 import com.spring.player.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/players")
+@RequestMapping("/myapi")
 public class PlayerController {
 
     private PlayerService playerService;
@@ -21,17 +18,52 @@ public class PlayerController {
         this.playerService = playerService;
     }
 
-    @GetMapping("/player")
-    public Player getPlayer(@RequestParam String name){
-        return playerService.getPlayerByName(name);
-    }
-    @GetMapping("/test")
-    public String test(){
-        return "Test";
+
+    // http://localhost:9090/api/players
+    @GetMapping("/players")
+    public List<Player> getPlayers() {
+        return playerService.allPlayers();
     }
 
-    @GetMapping("/playercont")
-    public List<Player> getPlayerCont(@RequestParam String name){
-        return playerService.getPlayersByNameContaining(name);
+    // http://localhost:9090/api/player?id=1
+    @GetMapping("/player")
+    public Player getPlayer(@RequestParam int id) {
+        Player player = playerService.showPlayer(id);
+        if (player == null) {
+            throw new RuntimeException("Player not found of id : " + id);
+        }
+        return player;
+    }
+
+    // http://localhost:9090/api/player/1
+    @GetMapping("/player/{id}")
+    public Player getPlayerWithPathVar(@PathVariable("id") int id) {
+        Player player = playerService.showPlayer(id);
+        if (player == null) {
+            throw new RuntimeException("Player not found of id : " + id);
+        }
+        return player;
+    }
+
+    // http://localhost:9090/api/players post method
+    @PostMapping("/players")
+    public Player createPlayer(@RequestBody Player player) {
+        playerService.savePlayer(player);
+        return player;
+    }
+
+    // http://localhost:9090/api/players put method
+    @PutMapping("/players")
+    public String editPlayer(@RequestBody Player player) {
+        playerService.savePlayer(player);
+        return "success editting";
+    }
+
+    // http://localhost:9090/api/player/1
+    @DeleteMapping("/player/{id}")
+    public String deletePlayerWithPathVar(@PathVariable("id") int id) {
+       playerService.deletePlayer(id);
+
+        return "Success Deleting";
     }
 }
